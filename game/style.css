@@ -71,7 +71,7 @@ button {
 }
 button:disabled { opacity: 0.4; cursor: default; }
 button.big { font-size: 18px; padding: 12px 28px; margin-top: 10px; }
-button.ghost { background: transparent; color: #d8c9a8; border: 1px solid #6b543a; }
+button.ghost { background: transparent; color: #6b543a; border: 1px solid #6b543a; }
 
 .dots { display: flex; gap: 8px; margin: 12px 0 4px; }
 .dot {

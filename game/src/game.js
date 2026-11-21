@@ -187,12 +187,35 @@ export class Game {
 
   drawRing(ctx, d, color, scale = 1, dashed = false) {
     ctx.save();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 4;
+    const r = d.r * scale + 4;
+    // A white halo first, so the gold ring reads on any background — even a
+    // yellow sun. Then the gold ring, then a small check at its edge.
+    ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+    ctx.lineWidth = 8;
     if (dashed) ctx.setLineDash([10, 8]);
     ctx.beginPath();
-    ctx.arc(d.x, d.y, d.r * scale + 4, 0, Math.PI * 2);
+    ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
     ctx.stroke();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 4.5;
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
+    ctx.stroke();
+    if (!dashed) {
+      const cx = d.x + r * 0.75;
+      const cy = d.y - r * 0.75;
+      ctx.fillStyle = '#ffd60a';
+      ctx.beginPath();
+      ctx.arc(cx, cy, 10, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#241a12';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(cx - 5, cy);
+      ctx.lineTo(cx - 1, cy + 4);
+      ctx.lineTo(cx + 5, cy - 4);
+      ctx.stroke();
+    }
     ctx.restore();
   }
 }
